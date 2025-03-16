@@ -37,7 +37,6 @@ func PrintStructure(node *FileNode) {
 }
 
 func buildNodeString(node *FileNode, prefix string, isLast bool, isRoot bool) string {
-
 	var sb strings.Builder
 
 	connector := "├── "
