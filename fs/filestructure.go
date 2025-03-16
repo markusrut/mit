@@ -3,6 +3,7 @@ package fs
 import (
 	"os"
 	"path/filepath"
+	"strings"
 )
 
 type FileNode struct {
@@ -28,6 +29,44 @@ func ReadFileStructure(rootPath string) (*FileNode, error) {
 	}
 
 	return rootNode, nil
+}
+
+func PrintStructure(node *FileNode) {
+	formattedString := buildNodeString(node, "", true, true)
+	println(formattedString)
+}
+
+func buildNodeString(node *FileNode, prefix string, isLast bool, isRoot bool) string {
+
+	var sb strings.Builder
+
+	connector := "├── "
+	if isLast {
+		connector = "└── "
+	}
+
+	if isRoot {
+		sb.WriteString(node.Name)
+	} else {
+		sb.WriteString(prefix + connector + node.Name)
+	}
+
+	childPrefix := prefix
+	if isRoot {
+		childPrefix += ""
+	} else if isLast {
+		childPrefix += "    "
+	} else {
+		childPrefix += "│   "
+	}
+
+	for i, child := range node.Children {
+		isLastChild := i == len(node.Children)-1
+		childString := buildNodeString(child, childPrefix, isLastChild, false)
+		sb.WriteString("\n" + childString)
+	}
+
+	return sb.String()
 }
 
 func nodeFromPath(rootPath string) (*FileNode, error) {

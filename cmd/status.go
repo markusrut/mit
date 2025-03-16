@@ -1,7 +1,6 @@
 package cmd
 
 import (
-	"encoding/json"
 	"fmt"
 
 	"github.com/markusrut/mit/fs"
@@ -34,13 +33,8 @@ var statusCmd = &cobra.Command{
 			return fmt.Errorf("failed to read file structure: %w", err)
 		}
 
-		// Output as JSON for demonstration (can be modified for other formats)
-		data, err := json.MarshalIndent(structure, "", "  ")
-		if err != nil {
-			return fmt.Errorf("failed to marshal to JSON: %w", err)
-		}
+		fs.PrintStructure(structure)
 
-		fmt.Println(string(data))
 		return nil
 	},
 }
