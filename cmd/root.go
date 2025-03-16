@@ -29,4 +29,5 @@ func init() {
 	// Add subcommands
 	rootCmd.AddCommand(greetCmd)
 	rootCmd.AddCommand(versionCmd)
+	rootCmd.AddCommand(statusCmd)
 }
