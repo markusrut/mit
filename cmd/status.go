@@ -3,7 +3,7 @@ package cmd
 import (
 	"fmt"
 
-	"github.com/markusrut/mit/fs"
+	"github.com/markusrut/mit/entity"
 	"github.com/spf13/cobra"
 )
 
@@ -28,12 +28,12 @@ var statusCmd = &cobra.Command{
 		}
 
 		// Read the file structure
-		structure, err := fs.ReadFileStructure(path)
+		structure, err := entity.ReadFileStructure(path)
 		if err != nil {
 			return fmt.Errorf("failed to read file structure: %w", err)
 		}
 
-		fs.PrintStructure(structure)
+		structure.Print()
 
 		return nil
 	},
