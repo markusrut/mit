@@ -6,14 +6,12 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// Version information
 var (
 	Version   = "0.1.0"
 	BuildTime = "unknown"
 	Commit    = "unknown"
 )
 
-// versionCmd represents the version command
 var versionCmd = &cobra.Command{
 	Use:   "version",
 	Short: "Print the version number",
@@ -25,4 +23,8 @@ var versionCmd = &cobra.Command{
 			fmt.Printf("Commit: %s\n", Commit)
 		}
 	},
+}
+
+func init() {
+	rootCmd.AddCommand(versionCmd)
 }

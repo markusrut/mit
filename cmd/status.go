@@ -9,26 +9,20 @@ import (
 )
 
 var (
-	path string
+	path        string
+	defaultPath = "testfiles"
 )
 
 var statusCmd = &cobra.Command{
-	Use:   "status",
+	Use:   "status [path]",
 	Short: "Status of working directory",
 	Long:  `Show the status of the working directory.`,
-	// Run: func(cmd *cobra.Command, args []string) {
-	// 	if verbose {
-	// 		fmt.Printf("Verbose mode enabled\n")
-	// 	}
-
-	// 	fmt.Printf("Status\n")
-
-	// 	if len(args) > 0 {
-	// 		fmt.Println("Additional arguments:", args)
-	// 	}
-	// },
-
+	Args:  cobra.MaximumNArgs(1),
 	RunE: func(cmd *cobra.Command, args []string) error {
+		if len(args) > 0 && path == defaultPath {
+			path = args[0]
+		}
+
 		if verbose {
 			fmt.Printf("Verbose mode enabled\n")
 			fmt.Printf("Path set to %s\n", path)
@@ -52,6 +46,7 @@ var statusCmd = &cobra.Command{
 }
 
 func init() {
-	// Local flags for the greet command
-	statusCmd.Flags().StringVar(&path, "path", "testfiles", "Path to the directory to show the status of")
+	statusCmd.Flags().StringVarP(&path, "path", "p", defaultPath, "Path to the directory to show the status of")
+
+	rootCmd.AddCommand(statusCmd)
 }

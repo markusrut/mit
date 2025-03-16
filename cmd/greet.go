@@ -11,7 +11,6 @@ var (
 	age  int
 )
 
-// greetCmd represents the greet command
 var greetCmd = &cobra.Command{
 	Use:   "greet",
 	Short: "Greet a person",
@@ -36,7 +35,8 @@ var greetCmd = &cobra.Command{
 }
 
 func init() {
-	// Local flags for the greet command
 	greetCmd.Flags().StringVar(&name, "name", "World", "a name to greet")
 	greetCmd.Flags().IntVar(&age, "age", 0, "age of the person")
+
+	rootCmd.AddCommand(greetCmd)
 }
